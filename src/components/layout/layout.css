@@ -1,0 +1,13 @@
+/* Header styling */
+.header {
+    position: relative;
+    height: 50px;
+    background-color: black;
+    margin: 0;
+}
+
+.headerTitle {
+    position: absolute;
+    color: white;
+    margin-left: 1%;
+}
