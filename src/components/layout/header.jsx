@@ -6,7 +6,7 @@ export default class Header extends React.Component {
         return (
             <div className="header">
                 <div className="headerTitle">
-                    <p>GFL Tracker</p>
+                    <p>Reference Check App</p>
                 </div>
             </div>
         )
