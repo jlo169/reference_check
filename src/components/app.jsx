@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './layout/header';
-// import ReactDOM from 'react-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component {
   render () {
@@ -13,4 +13,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

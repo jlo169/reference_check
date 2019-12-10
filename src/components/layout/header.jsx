@@ -1,5 +1,4 @@
 import React from 'react';
-import './layout.css';
 
 export default class Header extends React.Component {
 	constructor(props) {
