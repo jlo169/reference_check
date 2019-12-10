@@ -10,6 +10,17 @@ export default class Login extends React.Component {
     }
   }
 
+  handleFormChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  handleLogIn(event) {
+    event.preventDefault();
+    const loginInfo = { email: this.state.email, password: this.state.password, type: 'employer'};
+    this.props.loginButton(loginInfo);
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -19,19 +30,25 @@ export default class Login extends React.Component {
             <input 
               type="email" 
               className="form-control center-text" 
-              placeholder="Email" 
+              name="email"
+              placeholder="Email"
+              value={this.state.email} 
+              onChange={event => this.handleFormChange(event)}
             />
           </div>
           <div className="form-group row">
             <input 
               type="password" 
               className="form-control center-text"
+              name="password"
               placeholder="Password"
+              value={this.state.password}
+              onChange={event => this.handleFormChange(event)}
             />
           </div>
 
           <div className="row justify-content-center">
-            <button type="submit" className="btn btn-primary px-5">Log In</button>
+            <button type="submit" className="btn btn-primary px-5" onClick={event => this.handleLogIn(event)}>Log In</button>
           </div>
 
           <div className="row justify-content-center mt-3">

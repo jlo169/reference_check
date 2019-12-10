@@ -17,7 +17,7 @@ export default class Header extends React.Component {
 		return (
 			<nav className="navbar navbar-dark bg-secondary">
 				<div className="navbar-brand">
-						Reference Check
+						NausicaaIQ
 				</div>
 				<form className="form-inline">
 					<div className="input-group">
