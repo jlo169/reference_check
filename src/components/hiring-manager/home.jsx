@@ -2,6 +2,7 @@ import React from 'react';
 import Candidates from './tab-candidates';
 import Dashboard from './tab-dashboard';
 import OpenJobs from './tab-open-jobs';
+import "./hiring-manager.css";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ export default class Home extends React.Component {
 
   handleTabClick(event) {
     const tab = event.currentTarget.getAttribute('name');
-    console.log('value is', tab);
     this.setState({ currentTab: tab })
   } 
 
