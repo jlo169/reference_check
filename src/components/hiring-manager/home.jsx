@@ -35,17 +35,17 @@ export default class Home extends React.Component {
       <div className="container-fluid">
         <ul className="nav nav-tabs mt-2">
           <li className="nav-item">
-            <a className="nav-link active" name="dashboard" data-toggle="tab" onClick={this.handleTabClick}> 
+            <a className="nav-link pointer-cursor active" name="dashboard" data-toggle="tab" onClick={this.handleTabClick}> 
               Dashboard 
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" name="openJobs" data-toggle="tab" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="openJobs" data-toggle="tab" onClick={this.handleTabClick}>
               Open Jobs
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" name="candidates" data-toggle="tab" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="candidates" data-toggle="tab" onClick={this.handleTabClick}>
               Candidates
             </a>
           </li>
