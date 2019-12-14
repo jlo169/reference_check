@@ -1,13 +1,9 @@
 import React from 'react';
 
-export default class OpenJobs extends React.Component {
+export default class JobsTable extends React.Component {
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row my-3">
-          <button type="button" className="btn btn-primary mx-3">Add Open Job</button>
-          <button type="button" className="btn btn-primary">Add Candidate</button>
-        </div>
+      <div>
         <table className="table table-striped table-bordered">
           <thead className="thead-dark center-text">
             <tr>
@@ -21,7 +17,7 @@ export default class OpenJobs extends React.Component {
           </thead>
           <tbody className="center-text">
             <tr>
-              <th scope="row" className="pt-3">Product Manager</th>
+              <th scope="row" className="pt-3" onClick={this.props.handleJobClick}>Product Manager</th>
               <td className="pt-3">Growth</td>
               <td className="pt-3">$120000</td>
               <td className="pt-3">12/1/19</td>

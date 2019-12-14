@@ -1,14 +1,14 @@
 import React from 'react';
-import Candidates from './tab-candidates';
-import Dashboard from './tab-dashboard';
-import OpenJobs from './tab-open-jobs';
+import Candidates from './candidates/tab-candidates';
+import Dashboard from './dashboard/tab-dashboard';
+import OpenJobs from './open-jobs/tab-open-jobs';
 import "./hiring-manager.css";
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'dashboard'
+      currentTab: 'openJobs'
     }
     this.handleTabClick = this.handleTabClick.bind(this);
   }
@@ -21,31 +21,31 @@ export default class Home extends React.Component {
   render() {
     let currentTab;
     switch (this.state.currentTab) {
-      case "dashboard":
-        currentTab = <Dashboard />
-        break;
       case "openJobs":
         currentTab = <OpenJobs />
         break;
       case "candidates":
         currentTab = <Candidates />
+        break;
+      default:
+        currentTab = <Dashboard />
     }
 
     return (
       <div className="container-fluid">
         <ul className="nav nav-tabs mt-2">
           <li className="nav-item">
-            <a className="nav-link pointer-cursor active" name="dashboard" data-toggle="tab" onClick={this.handleTabClick}> 
+            <a className="nav-link pointer-cursor active" name="dashboard" data-toggle="tab" href="#" onClick={this.handleTabClick}> 
               Dashboard 
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link pointer-cursor" name="openJobs" data-toggle="tab" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="openJobs" data-toggle="tab" href="#" onClick={this.handleTabClick}>
               Open Jobs
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link pointer-cursor" name="candidates" data-toggle="tab" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="candidates" data-toggle="tab" href="#" onClick={this.handleTabClick}>
               Candidates
             </a>
           </li>
