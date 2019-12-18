@@ -8,7 +8,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'openJobs'
+      currentTab: 'candidates'
     }
     this.handleTabClick = this.handleTabClick.bind(this);
   }
