@@ -3,6 +3,7 @@ import Header from './layout/header';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Login from './hiring-manager/login';
 import Home from './hiring-manager/home';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +27,12 @@ class App extends React.Component {
     });
   }
 
+  testing() {
+    axios.get('/api/candidates')
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
+  }
+
   render () {
     return (
       <div>
@@ -41,7 +48,7 @@ class App extends React.Component {
             />
           }/>
         </Switch>
-        
+        <button onClick={() => this.testing()}>Pug</button>
       </div>
     )
   }
