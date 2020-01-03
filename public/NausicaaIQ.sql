@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 14, 2019 at 03:00 AM
+-- Generation Time: Jan 03, 2020 at 01:07 AM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.17-0ubuntu0.18.04.1
 
@@ -23,6 +23,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `applications`
+--
+
+CREATE TABLE `applications` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `openPositionId` int(10) UNSIGNED NOT NULL,
+  `candidateId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assessments`
+--
+
+CREATE TABLE `assessments` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `candidatePositionsId` int(10) UNSIGNED NOT NULL,
+  `referenceId` int(10) UNSIGNED NOT NULL,
+  `jobTitle` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `seniority` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `focusArea` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `skills` blob NOT NULL,
+  `dateCreated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `candidate`
 --
 
@@ -35,18 +64,12 @@ CREATE TABLE `candidate` (
   `dateCreated` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `candidatePositions`
+-- Dumping data for table `candidate`
 --
 
-CREATE TABLE `candidatePositions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `openPositionId` int(10) UNSIGNED NOT NULL,
-  `candidateId` int(10) UNSIGNED NOT NULL,
-  `field` enum('do this','do that','pug','wug') COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `candidate` (`id`, `name`, `email`, `linkedIn`, `phone`, `dateCreated`) VALUES
+(1, 'Jon Snow', 'jsnow@thewall.com', 'linkedin.com/jsnow', '1234567890', '2019-12-20');
 
 -- --------------------------------------------------------
 
@@ -62,22 +85,6 @@ CREATE TABLE `company` (
   `size` mediumint(8) UNSIGNED NOT NULL,
   `yearFounded` date NOT NULL,
   `dateCreated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `findReferenceRequests`
---
-
-CREATE TABLE `findReferenceRequests` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `hiringManagerId` int(10) UNSIGNED NOT NULL,
-  `candidateId` int(10) UNSIGNED NOT NULL,
-  `openPositionId` int(10) UNSIGNED NOT NULL,
-  `dateCreated` date NOT NULL,
-  `openTask` timestamp NULL DEFAULT NULL,
-  `sendRequest` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -110,10 +117,10 @@ CREATE TABLE `hiringManager` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobSpecificSkills`
+-- Table structure for table `jobSkill`
 --
 
-CREATE TABLE `jobSpecificSkills` (
+CREATE TABLE `jobSkill` (
   `id` int(10) UNSIGNED NOT NULL,
   `jobTitlesId` int(10) UNSIGNED NOT NULL,
   `skillsId` int(10) UNSIGNED NOT NULL
@@ -134,6 +141,18 @@ CREATE TABLE `jobTitle` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jobTrait`
+--
+
+CREATE TABLE `jobTrait` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `jobTitleId` int(10) UNSIGNED NOT NULL,
+  `traitId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `openPositions`
 --
 
@@ -144,6 +163,34 @@ CREATE TABLE `openPositions` (
   `focusArea` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `salary` int(10) UNSIGNED NOT NULL,
   `dateCreated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qualityAssessments`
+--
+
+CREATE TABLE `qualityAssessments` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `assessmentsId` int(11) NOT NULL,
+  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `keyVal` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `dateCreated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questionAssessments`
+--
+
+CREATE TABLE `questionAssessments` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `assessmentId` int(11) NOT NULL,
+  `keyVal` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -169,59 +216,22 @@ CREATE TABLE `reference` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `referenceAssessmentRequest`
+-- Table structure for table `skill`
 --
 
-CREATE TABLE `referenceAssessmentRequest` (
+CREATE TABLE `skill` (
   `id` int(10) UNSIGNED NOT NULL,
-  `referenceId` int(10) UNSIGNED NOT NULL,
-  `candidateId` int(10) UNSIGNED NOT NULL,
-  `openPositionsId` int(10) UNSIGNED NOT NULL,
-  `dateCreated` date NOT NULL,
-  `openAssessment` int(11) DEFAULT NULL,
-  `completeAssessment` int(11) DEFAULT NULL
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `selfAssessment`
+-- Table structure for table `trait`
 --
 
-CREATE TABLE `selfAssessment` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `candidatePositionsId` int(10) UNSIGNED NOT NULL,
-  `jobTitle` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `seniority` smallint(5) UNSIGNED NOT NULL,
-  `focusArea` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `skills` mediumblob NOT NULL,
-  `dateCreated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `skillAssessments`
---
-
-CREATE TABLE `skillAssessments` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `candidatePositionsId` int(10) UNSIGNED NOT NULL,
-  `referenceId` int(10) UNSIGNED NOT NULL,
-  `jobTitle` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `seniority` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `focusArea` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `skills` blob NOT NULL,
-  `dateCreated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `skills`
---
-
-CREATE TABLE `skills` (
+CREATE TABLE `trait` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
@@ -232,27 +242,27 @@ CREATE TABLE `skills` (
 --
 
 --
+-- Indexes for table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assessments`
+--
+ALTER TABLE `assessments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `candidate`
 --
 ALTER TABLE `candidate`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `candidatePositions`
---
-ALTER TABLE `candidatePositions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `company`
 --
 ALTER TABLE `company`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `findReferenceRequests`
---
-ALTER TABLE `findReferenceRequests`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -268,9 +278,9 @@ ALTER TABLE `hiringManager`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jobSpecificSkills`
+-- Indexes for table `jobSkill`
 --
-ALTER TABLE `jobSpecificSkills`
+ALTER TABLE `jobSkill`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -280,9 +290,27 @@ ALTER TABLE `jobTitle`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jobTrait`
+--
+ALTER TABLE `jobTrait`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `openPositions`
 --
 ALTER TABLE `openPositions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `qualityAssessments`
+--
+ALTER TABLE `qualityAssessments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `questionAssessments`
+--
+ALTER TABLE `questionAssessments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -292,27 +320,15 @@ ALTER TABLE `reference`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `referenceAssessmentRequest`
+-- Indexes for table `skill`
 --
-ALTER TABLE `referenceAssessmentRequest`
+ALTER TABLE `skill`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `selfAssessment`
+-- Indexes for table `trait`
 --
-ALTER TABLE `selfAssessment`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `skillAssessments`
---
-ALTER TABLE `skillAssessments`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `skills`
---
-ALTER TABLE `skills`
+ALTER TABLE `trait`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -320,25 +336,25 @@ ALTER TABLE `skills`
 --
 
 --
+-- AUTO_INCREMENT for table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `assessments`
+--
+ALTER TABLE `assessments`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `candidate`
 --
 ALTER TABLE `candidate`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `candidatePositions`
---
-ALTER TABLE `candidatePositions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
   MODIFY `id` mediumint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `findReferenceRequests`
---
-ALTER TABLE `findReferenceRequests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `focusAreas`
 --
@@ -350,9 +366,9 @@ ALTER TABLE `focusAreas`
 ALTER TABLE `hiringManager`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `jobSpecificSkills`
+-- AUTO_INCREMENT for table `jobSkill`
 --
-ALTER TABLE `jobSpecificSkills`
+ALTER TABLE `jobSkill`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `jobTitle`
@@ -360,9 +376,24 @@ ALTER TABLE `jobSpecificSkills`
 ALTER TABLE `jobTitle`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `jobTrait`
+--
+ALTER TABLE `jobTrait`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `openPositions`
 --
 ALTER TABLE `openPositions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `qualityAssessments`
+--
+ALTER TABLE `qualityAssessments`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `questionAssessments`
+--
+ALTER TABLE `questionAssessments`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `reference`
@@ -370,24 +401,14 @@ ALTER TABLE `openPositions`
 ALTER TABLE `reference`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `referenceAssessmentRequest`
+-- AUTO_INCREMENT for table `skill`
 --
-ALTER TABLE `referenceAssessmentRequest`
+ALTER TABLE `skill`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `selfAssessment`
+-- AUTO_INCREMENT for table `trait`
 --
-ALTER TABLE `selfAssessment`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `skillAssessments`
---
-ALTER TABLE `skillAssessments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `skills`
---
-ALTER TABLE `skills`
+ALTER TABLE `trait`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
