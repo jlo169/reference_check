@@ -17,7 +17,7 @@ export default class JobsTable extends React.Component {
           </thead>
           <tbody className="center-text">
             <tr>
-              <th scope="row" className="pt-3" onClick={this.props.handleJobClick}>Product Manager</th>
+              <th scope="row" className="pt-3">Product Manager</th>
               <td className="pt-3">Growth</td>
               <td className="pt-3">$120000</td>
               <td className="pt-3">12/1/19</td>
