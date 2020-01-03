@@ -1,13 +1,26 @@
 import React from 'react';
 
 export default class JobsListing extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.formatDate = this.formatDate.bind(this);
+  }
+
+  formatDate(date) {
+    const d = new Date(date);
+    return (`${d.getMonth()}/${d.getDay()}/${d.getFullYear()}`);
+  }
+
   render() {
+    const job = this.props.job;
+    let date = this.formatDate(job.dateCreated)
     return (
       <tr>
-        <th scope="row" className="pt-3">Product Manager</th>
-        <td className="pt-3">Growth</td>
-        <td className="pt-3">$120000</td>
-        <td className="pt-3">12/1/19</td>
+        <th scope="row" className="pt-3">{job.jobTitle}</th>
+        <td className="pt-3">{job.focusArea}</td>
+        <td className="pt-3">${job.salary}</td>
+        <td className="pt-3">{date}</td>
         <td><button type="button" className="btn btn-success btn-sm"><i className="fas fa-plus"></i></button></td>
         <td><button type="button" className="btn btn-danger btn-sm"><i className="fas fa-minus"></i></button></td>
       </tr>

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Candidates from './candidates/tab-candidates';
 import Dashboard from './dashboard/tab-dashboard';
 import OpenJobs from './open-jobs/tab-open-jobs';
@@ -8,9 +9,11 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'openJobs'
+      currentTab: 'openJobs',
+      openJobs: []
     }
     this.handleTabClick = this.handleTabClick.bind(this);
+    this.getOpenJobs = this.getOpenJobs.bind(this);
   }
 
   handleTabClick(event) {
@@ -18,11 +21,25 @@ export default class Home extends React.Component {
     this.setState({ currentTab: tab })
   } 
 
+  getOpenJobs() {
+    axios.get('/api/openJobs')
+      .then(response => {
+        this.setState({ openJobs: response.data });
+      })
+      .catch(error => console.error(error));
+  }
+
+  componentDidMount() {
+    this.getOpenJobs();
+  }
+
   render() {
     let currentTab;
     switch (this.state.currentTab) {
       case "openJobs":
-        currentTab = <OpenJobs />
+        currentTab = <OpenJobs 
+          jobListings = {this.state.openJobs}
+        />
         break;
       case "candidates":
         currentTab = <Candidates />

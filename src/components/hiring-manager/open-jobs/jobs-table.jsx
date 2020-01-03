@@ -1,7 +1,15 @@
 import React from 'react';
+import JobsListing from './jobs-listing';
 
 export default class JobsTable extends React.Component {
   render() {
+    const jobListing = this.props.jobListings.map( job => 
+      <JobsListing 
+        job = {job}
+        key = {job.id}
+      />
+    )
+
     return (
       <div>
         <table className="table table-striped table-bordered">
@@ -16,30 +24,7 @@ export default class JobsTable extends React.Component {
             </tr>
           </thead>
           <tbody className="center-text">
-            <tr>
-              <th scope="row" className="pt-3">Product Manager</th>
-              <td className="pt-3">Growth</td>
-              <td className="pt-3">$120000</td>
-              <td className="pt-3">12/1/19</td>
-              <td><button type="button" className="btn btn-success btn-sm"><i className="fas fa-plus"></i></button></td>
-              <td><button type="button" className="btn btn-danger btn-sm"><i className="fas fa-minus"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row" className="pt-3">Senior Product Manager</th>
-              <td className="pt-3">Platform</td>
-              <td className="pt-3">$180000</td>
-              <td className="pt-3">12/1/19</td>
-              <td><button type="button" className="btn btn-success btn-sm"><i className="fas fa-plus"></i></button></td>
-              <td><button type="button" className="btn btn-danger btn-sm"><i className="fas fa-minus"></i></button></td>
-            </tr>
-            <tr>
-              <th scope="row" className="pt-3">Associate Product Manager</th>
-              <td className="pt-3">General</td>
-              <td className="pt-3">$95000</td>
-              <td className="pt-3">12/1/19</td>
-              <td><button type="button" className="btn btn-success btn-sm"><i className="fas fa-plus"></i></button></td>
-              <td><button type="button" className="btn btn-danger btn-sm"><i className="fas fa-minus"></i></button></td>
-            </tr>
+            {jobListing}
           </tbody>
         </table>
       </div>
