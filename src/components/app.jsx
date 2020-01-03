@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   testing() {
-    axios.get('/api/candidates')
+    axios.get('/api/openJobs')
       .then(response => console.log(response.data))
       .catch(error => console.error(error));
   }

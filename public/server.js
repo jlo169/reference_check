@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.DB_PORT || 3001;
 
 const candidates = require('./endpoints/candidates.js');
+const openJobs = require('./endpoints/openJobs.js')
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -24,6 +25,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', candidates(db));
+app.use('/api', openJobs(db));
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
