@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import JobsTable from './jobs-table';
 import CandidatesTable from './job-candidates-table';
 
@@ -8,13 +9,31 @@ export default class OpenJobs extends React.Component {
     super(props)
     this.state = {
       currentTable: 'jobs',
-      jobListing: ''
+      jobListing: '',
+      candidates: []
     }
+
+    this.getJobCandidates = this.getJobCandidates.bind(this);
   }
 
   handleJobClick(event) {
     const jobName = event.target.innerText;
     this.setState({ currentTable: 'candidates', jobListing: jobName });
+  }
+
+  getJobCandidates(event) {
+    const jobId = event.target.getAttribute('value');
+    const jobListing = event.target.innerText;
+
+    axios.get(`/api/openJobs/${jobId}`)
+      .then(response => {
+        this.setState({ 
+          currentTable: 'candidates', 
+          jobListing: jobListing,
+          candidates: response.data
+        })
+      })
+      .catch(error => console.error(error));
   }
 
   handleBackArrowClick() {
@@ -42,10 +61,13 @@ export default class OpenJobs extends React.Component {
           <JobsTable 
             handleJobClick={event => this.handleJobClick(event)}
             jobListings={this.props.jobListings}
-            jobCandidates={this.props.jobCandidates}
+            jobCandidates={this.getJobCandidates}
           />
         ) : (
-          <CandidatesTable />
+          <CandidatesTable 
+            candidates={this.state.candidates}
+            getJobCandidates={this.getJobCandidates}
+          />
         )}
       </div>
     )

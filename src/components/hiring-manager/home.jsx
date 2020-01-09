@@ -14,7 +14,6 @@ export default class Home extends React.Component {
     }
     this.handleTabClick = this.handleTabClick.bind(this);
     this.getOpenJobs = this.getOpenJobs.bind(this);
-    this.getJobCandidates = this.getJobCandidates.bind(this);
   }
 
   handleTabClick(event) {
@@ -30,13 +29,6 @@ export default class Home extends React.Component {
       .catch(error => console.error(error));
   }
 
-  getJobCandidates(event) {
-    const jobId = event.target.getAttribute('value');
-    console.log('event.target is ', jobId);
-    axios.get(`/api/openJobs/${jobId}`)
-      .then(response => console.log('response.data is ', response.data))
-  }
-
   componentDidMount() {
     this.getOpenJobs();
   }
@@ -47,7 +39,6 @@ export default class Home extends React.Component {
       case "openJobs":
         currentTab = <OpenJobs 
           jobListings = {this.state.openJobs}
-          jobCandidates = {this.getJobCandidates}
         />
         break;
       case "candidates":
