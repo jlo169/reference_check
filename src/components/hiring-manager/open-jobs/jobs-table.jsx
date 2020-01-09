@@ -7,6 +7,7 @@ export default class JobsTable extends React.Component {
       <JobsListing 
         job = {job}
         key = {job.id}
+        jobCandidates={this.props.jobCandidates}
       />
     )
 

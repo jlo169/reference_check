@@ -17,7 +17,7 @@ export default class JobsListing extends React.Component {
     let date = this.formatDate(job.dateCreated)
     return (
       <tr>
-        <th scope="row" className="pt-3">{job.jobTitle}</th>
+        <th scope="row" className="pt-3" value={job.id} onClick={this.props.jobCandidates}>{job.jobTitle}</th>
         <td className="pt-3">{job.focusArea}</td>
         <td className="pt-3">${job.salary}</td>
         <td className="pt-3">{date}</td>

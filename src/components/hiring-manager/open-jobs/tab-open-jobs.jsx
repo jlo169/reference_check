@@ -42,6 +42,7 @@ export default class OpenJobs extends React.Component {
           <JobsTable 
             handleJobClick={event => this.handleJobClick(event)}
             jobListings={this.props.jobListings}
+            jobCandidates={this.props.jobCandidates}
           />
         ) : (
           <CandidatesTable />
