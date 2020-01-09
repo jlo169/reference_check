@@ -28,6 +28,17 @@ const openJobs = conn => {
     }
   })
 
+  router.post('/openJobs', async (req, res, next) => {
+    try {
+      const newJob = req.body;
+      if (!newJob.content) {
+        res.status(400).json({ error: 'Nothing submitted' })
+      } else {
+        res(201).json(newJob);
+      }
+    }
+  })
+
   return router;
 }
 

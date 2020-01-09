@@ -27,12 +27,6 @@ class App extends React.Component {
     });
   }
 
-  testing() {
-    axios.get('/api/openJobs')
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
-  }
-
   render () {
     return (
       <div>
@@ -48,7 +42,6 @@ class App extends React.Component {
             />
           }/>
         </Switch>
-        <button onClick={() => this.testing()}>Pug</button>
       </div>
     )
   }
