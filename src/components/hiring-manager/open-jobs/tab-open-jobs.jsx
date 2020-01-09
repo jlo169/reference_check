@@ -16,11 +16,6 @@ export default class OpenJobs extends React.Component {
     this.getJobCandidates = this.getJobCandidates.bind(this);
   }
 
-  handleJobClick(event) {
-    const jobName = event.target.innerText;
-    this.setState({ currentTable: 'candidates', jobListing: jobName });
-  }
-
   getJobCandidates(event) {
     const jobId = event.target.getAttribute('value');
     const jobListing = event.target.innerText;
