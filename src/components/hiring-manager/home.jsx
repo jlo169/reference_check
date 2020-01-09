@@ -3,13 +3,14 @@ import axios from 'axios';
 import Candidates from './candidates/tab-candidates';
 import Dashboard from './dashboard/tab-dashboard';
 import OpenJobs from './open-jobs/tab-open-jobs';
+import AddJob from './form-add-job';
 import "./hiring-manager.css";
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'openJobs',
+      currentTab: 'addJob',
       openJobs: []
     }
     this.handleTabClick = this.handleTabClick.bind(this);
@@ -20,6 +21,20 @@ export default class Home extends React.Component {
     const tab = event.currentTarget.getAttribute('name');
     this.setState({ currentTab: tab })
   } 
+
+  addJob(data) {
+    let d = new Date();
+    console.log(d.toDateString())
+    data['dateCreated'] = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    axios.post('/api/openJobs', data)
+      .then(response => {
+        if (response.data.success) {
+          console.log('job post is successful', response.data.data)
+        }
+        this.setState({ currentTab: 'openJobs'})
+      })
+      .catch(err => console.error(err));
+  }
 
   getOpenJobs() {
     axios.get('/api/openJobs')
@@ -43,6 +58,11 @@ export default class Home extends React.Component {
         break;
       case "candidates":
         currentTab = <Candidates />
+        break;
+      case "addJob":
+        currentTab = <AddJob 
+          addJob = {event => this.addJob(event)}
+        />
         break;
       default:
         currentTab = <Dashboard />

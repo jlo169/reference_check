@@ -30,12 +30,18 @@ const openJobs = conn => {
 
   router.post('/openJobs', async (req, res, next) => {
     try {
-      const newJob = req.body;
-      if (!newJob.content) {
-        res.status(400).json({ error: 'Nothing submitted' })
-      } else {
-        res(201).json(newJob);
+      const { jobTitle, focusArea, salary, dateCreated } = req.body;
+      let postQuery = 'INSERT INTO `openPositions`(`id`, `companyId`, `jobTitle`, `focusArea`, `salary`, `dateCreated`)\
+         VALUES (NULL, ?, ?, ?, ?, ?)';
+      let values = [1, jobTitle, focusArea, salary, dateCreated];
+      const [result] = await conn.query(postQuery, values);
+      const output = {
+        sucess: true,
+        data: result
       }
+      res.status(201).json(output);
+    } catch(err) {
+      return next(err);
     }
   })
 
