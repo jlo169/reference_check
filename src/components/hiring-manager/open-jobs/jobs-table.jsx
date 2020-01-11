@@ -3,6 +3,7 @@ import JobsListing from './jobs-listing';
 
 export default class JobsTable extends React.Component {
   render() {
+    console.log(this.props.jobListings)
     const jobListing = this.props.jobListings.map( job => 
       <JobsListing 
         job = {job}

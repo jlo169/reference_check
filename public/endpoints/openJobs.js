@@ -35,9 +35,20 @@ const openJobs = conn => {
          VALUES (NULL, ?, ?, ?, ?, ?)';
       let values = [1, jobTitle, focusArea, salary, dateCreated];
       const [result] = await conn.query(postQuery, values);
+      const insertedJob = {
+        id: result.insertId,
+        companyId: 1,
+        jobTitle: jobTitle, 
+        focusArea: focusArea, 
+        salary: salary, 
+        dateCreated: dateCreated
+      }
       const output = {
         sucess: true,
-        data: result
+        data: {
+          result: result,
+          insertedJob: insertedJob
+        }
       }
       res.status(201).json(output);
     } catch(err) {

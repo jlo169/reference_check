@@ -48,7 +48,7 @@ export default class OpenJobs extends React.Component {
             )}
           </div>
           <div className="row col-xs-12 col-sm-4 justify-content-end">
-            <button type="button" className="btn btn-primary mx-3">Add Open Job</button>
+            <button type="button" className="btn btn-primary mx-3" onClick={() => this.props.addJob()}>Add Open Job</button>
             <button type="button" className="btn btn-primary mr-4">Add Candidate</button>
           </div>
         </div>

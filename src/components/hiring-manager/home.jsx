@@ -10,17 +10,22 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTab: 'addJob',
+      currentTab: 'dashboard',
       openJobs: []
     }
     this.handleTabClick = this.handleTabClick.bind(this);
     this.getOpenJobs = this.getOpenJobs.bind(this);
+    this.addJobButton = this.addJobButton.bind(this);
   }
 
   handleTabClick(event) {
     const tab = event.currentTarget.getAttribute('name');
     this.setState({ currentTab: tab })
   } 
+
+  addJobButton() {
+    this.setState({ currentTab: 'addJob' })
+  }
 
   addJob(data) {
     let d = new Date();
@@ -31,7 +36,10 @@ export default class Home extends React.Component {
         if (response.data.success) {
           console.log('job post is successful', response.data.data)
         }
-        this.setState({ currentTab: 'openJobs'})
+        console.log('response.data is', response.data);
+        const openJobsArr = [...this.state.openJobs, response.data.data.insertedJob];
+        console.log(openJobsArr);
+        this.setState({ currentTab: 'openJobs', openJobs: openJobsArr })
       })
       .catch(err => console.error(err));
   }
@@ -54,6 +62,7 @@ export default class Home extends React.Component {
       case "openJobs":
         currentTab = <OpenJobs 
           jobListings = {this.state.openJobs}
+          addJob = {this.addJobButton}
         />
         break;
       case "candidates":
