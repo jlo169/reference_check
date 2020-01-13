@@ -5,13 +5,13 @@ export default class AddJob extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobTitle: '',
-      focusArea: '',
-      salary: 0,
-      jobMission: '',
-      desiredOutcomes1: '',
-      desiredOutcomes2: '',
-      desiredOutcomes3: '',
+      jobTitle: 'asfd',
+      focusArea: 'afsd',
+      salary: 1,
+      jobMission: 'sadf',
+      desiredOutcomes1: 'sadf',
+      desiredOutcomes2: 'asdf',
+      desiredOutcomes3: 'fdsa',
       targetSkills: {
         productSensitivity: false,
         strategy: false,
@@ -96,7 +96,7 @@ export default class AddJob extends React.Component {
                 type="text"
                 name="desiredOutcomes1"
                 className="col-md-12"
-                value={this.state.desiredOutcomes}
+                value={this.state.desiredOutcomes1}
                 onChange={event => this.handleInputs(event)}
               />
             </div>
@@ -106,7 +106,7 @@ export default class AddJob extends React.Component {
                 type="text"
                 name="desiredOutcomes2"
                 className="col-md-12"
-                value={this.state.desiredOutcomes}
+                value={this.state.desiredOutcomes2}
                 onChange={event => this.handleInputs(event)}
               />
             </div>
@@ -116,7 +116,7 @@ export default class AddJob extends React.Component {
                 type="text"
                 name="desiredOutcomes3"
                 className="col-md-12"
-                value={this.state.desiredOutcomes}
+                value={this.state.desiredOutcomes3}
                 onChange={event => this.handleInputs(event)}
               />
             </div>
