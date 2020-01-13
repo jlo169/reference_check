@@ -29,16 +29,14 @@ export default class Home extends React.Component {
 
   addJob(data) {
     let d = new Date();
-    console.log(d.toDateString())
     data['dateCreated'] = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+
     axios.post('/api/openJobs', data)
       .then(response => {
         if (response.data.success) {
           console.log('job post is successful', response.data.data)
         }
-        console.log('response.data is', response.data);
         const openJobsArr = [...this.state.openJobs, response.data.data.insertedJob];
-        console.log(openJobsArr);
         this.setState({ currentTab: 'openJobs', openJobs: openJobsArr })
       })
       .catch(err => console.error(err));
@@ -81,17 +79,17 @@ export default class Home extends React.Component {
       <div className="container-fluid">
         <ul className="nav nav-tabs mt-2">
           <li className="nav-item">
-            <a className="nav-link pointer-cursor active" name="dashboard" data-toggle="tab" href="#" onClick={this.handleTabClick}> 
+            <a className="nav-link pointer-cursor active" name="dashboard" data-toggle="tab" href="/dashboard" onClick={this.handleTabClick}> 
               Dashboard 
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link pointer-cursor" name="openJobs" data-toggle="tab" href="#" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="openJobs" data-toggle="tab" href="/openjobs" onClick={this.handleTabClick}>
               Open Jobs
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link pointer-cursor" name="candidates" data-toggle="tab" href="#" onClick={this.handleTabClick}>
+            <a className="nav-link pointer-cursor" name="candidates" data-toggle="tab" href="/candidates" onClick={this.handleTabClick}>
               Candidates
             </a>
           </li>

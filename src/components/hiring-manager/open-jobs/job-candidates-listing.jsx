@@ -9,6 +9,8 @@ export default class JobCandidateListing extends React.Component {
 
   formatDate(date) {
     const d = new Date(date);
+    console.log('date is', date)
+    console.log('d is', d)
     return (`${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`);
   }
 
