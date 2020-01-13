@@ -11,7 +11,7 @@ export default class JobCandidateListing extends React.Component {
     const d = new Date(date);
     console.log('date is', date)
     console.log('d is', d)
-    return (`${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`);
+    return (`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`);
   }
 
   render() {
