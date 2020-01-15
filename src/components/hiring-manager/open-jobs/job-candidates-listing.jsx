@@ -21,7 +21,7 @@ export default class JobCandidateListing extends React.Component {
         <th scope="row" className="pt-3">{candidate.name}</th>
         <td className="pt-3">{candidate.email}</td>
         <td className="pt-3">{candidate.linkedIn}</td>
-        <td className="pt-3">{candidate.email}</td>
+        <td className="pt-3">{candidate.phone}</td>
         <td className="pt-3">{date}</td>
         <td><button type="button" className="btn btn-success btn-sm"><i className="fas fa-plus"></i></button></td>
       </tr>

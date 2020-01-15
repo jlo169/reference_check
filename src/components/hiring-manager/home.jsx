@@ -4,6 +4,7 @@ import Candidates from './candidates/tab-candidates';
 import Dashboard from './dashboard/tab-dashboard';
 import OpenJobs from './open-jobs/tab-open-jobs';
 import AddJob from './form-add-job';
+import AddCandidate from './form-add-candidate';
 import "./hiring-manager.css";
 
 export default class Home extends React.Component {
@@ -11,12 +12,15 @@ export default class Home extends React.Component {
     super(props)
     this.state = {
       currentTab: 'dashboard',
-      openJobs: []
+      openJobs: [],
+      targetId: 0
     }
     this.handleTabClick = this.handleTabClick.bind(this);
     this.getOpenJobs = this.getOpenJobs.bind(this);
     this.addJobButton = this.addJobButton.bind(this);
     this.deleteJob = this.deleteJob.bind(this);
+    this.handleAddCandidateButton = this.handleAddCandidateButton.bind(this);
+    this.addCandidateToJob = this.addCandidateToJob.bind(this);
   }
 
   handleTabClick(event) {
@@ -61,6 +65,21 @@ export default class Home extends React.Component {
       .catch(error => console.error(error));
   }
 
+  handleAddCandidateButton(id) {
+    this.setState({ currentTab: 'addCandidate', targetId: id});
+  }
+
+  addCandidateToJob(data) {
+    let d = new Date();
+    data['dateCreated'] = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+
+    axios.post('/api/candidates', data)
+      .then(() => {
+        this.setState({ currentTab: 'openJobs' }, console.log('after setstate'))
+      })
+      .catch(error => console.error(error));
+  }
+
   componentDidMount() {
     this.getOpenJobs();
   }
@@ -73,6 +92,7 @@ export default class Home extends React.Component {
           jobListings = {this.state.openJobs}
           addJob = {this.addJobButton}
           deleteJob = {this.deleteJob}
+          addCandidate = {this.handleAddCandidateButton}
         />
         break;
       case "candidates":
@@ -81,6 +101,12 @@ export default class Home extends React.Component {
       case "addJob":
         currentTab = <AddJob 
           addJob = {event => this.addJob(event)}
+        />
+        break;
+      case "addCandidate":
+        currentTab = <AddCandidate 
+          targetId={this.state.targetId}
+          addCandidateToJob={this.addCandidateToJob}
         />
         break;
       default:

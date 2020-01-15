@@ -29,6 +29,7 @@ export default class JobsListing extends React.Component {
           <button 
             type="button" 
             className="btn btn-success btn-sm"
+            onClick={() => this.props.addCandidate(this.props.job.id)}
           >
             <i className="fas fa-plus"></i>
           </button>

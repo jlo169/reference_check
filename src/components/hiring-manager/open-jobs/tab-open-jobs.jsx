@@ -57,6 +57,7 @@ export default class OpenJobs extends React.Component {
             jobListings={this.props.jobListings}
             jobCandidates={this.getJobCandidates}
             deleteJob={this.props.deleteJob}
+            addCandidate={this.props.addCandidate}
           />
         ) : (
           <CandidatesTable 
