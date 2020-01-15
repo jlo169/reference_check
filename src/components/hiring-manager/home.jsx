@@ -38,9 +38,6 @@ export default class Home extends React.Component {
 
     axios.post('/api/openJobs', data)
       .then(response => {
-        if (response.data.success) {
-          console.log('job post is successful', response.data.data)
-        }
         const openJobsArr = [...this.state.openJobs, response.data.data.insertedJob];
         this.setState({ currentTab: 'openJobs', openJobs: openJobsArr })
       })
@@ -75,7 +72,7 @@ export default class Home extends React.Component {
 
     axios.post('/api/candidates', data)
       .then(() => {
-        this.setState({ currentTab: 'openJobs' }, console.log('after setstate'))
+        this.setState({ currentTab: 'openJobs' })
       })
       .catch(error => console.error(error));
   }
