@@ -16,6 +16,7 @@ export default class Home extends React.Component {
     this.handleTabClick = this.handleTabClick.bind(this);
     this.getOpenJobs = this.getOpenJobs.bind(this);
     this.addJobButton = this.addJobButton.bind(this);
+    this.deleteJob = this.deleteJob.bind(this);
   }
 
   handleTabClick(event) {
@@ -50,6 +51,16 @@ export default class Home extends React.Component {
       .catch(error => console.error(error));
   }
 
+  deleteJob(id) {
+    axios.delete(`/api/openJobs/${id}`)
+      .then(() => {
+        const jobArr = [...this.state.openJobs];
+        const updatedJobArr = jobArr.filter(job => job.id !== id);
+        this.setState({ openJobs: updatedJobArr });
+      })
+      .catch(error => console.error(error));
+  }
+
   componentDidMount() {
     this.getOpenJobs();
   }
@@ -61,6 +72,7 @@ export default class Home extends React.Component {
         currentTab = <OpenJobs 
           jobListings = {this.state.openJobs}
           addJob = {this.addJobButton}
+          deleteJob = {this.deleteJob}
         />
         break;
       case "candidates":

@@ -62,21 +62,18 @@ const openJobs = conn => {
     }
   })
 
+  router.delete('/openJobs/:id', async (req, res, next) => {
+    try {
+      const jobId = req.params.id;
+      const query = 'DELETE FROM `openPositions` WHERE id=' + jobId;
+      await conn.query(query);
+      res.status(204).end();
+    } catch(err) {
+      return next(err);
+    }
+  })
+
   return router;
 }
 
 module.exports = openJobs;
-
-// {
-//   id: result.insertId,
-//   companyId: 1,
-//   jobTitle: jobTitle, 
-//   focusArea: focusArea, 
-//   salary: salary, 
-//   dateCreated: dateCreated,
-//   jobMission: jobMission,
-//   desiredOutcome1: desiredOutcomes1,
-//   desiredOutcome2: desiredOutcomes2,
-//   desiredOutcome3: desiredOutcomes3, 
-//   targetSkills: targetSkills
-// }

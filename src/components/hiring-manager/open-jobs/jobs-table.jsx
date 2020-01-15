@@ -9,6 +9,7 @@ export default class JobsTable extends React.Component {
         job = {job}
         key = {job.id}
         jobCandidates={this.props.jobCandidates}
+        deleteJob={this.props.deleteJob}
       />
     )
 
