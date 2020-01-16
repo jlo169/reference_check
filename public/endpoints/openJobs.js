@@ -30,11 +30,12 @@ const openJobs = conn => {
 
   router.post('/openJobs', async (req, res, next) => {
     try {
-      const { jobTitle, focusArea, salary, dateCreated, jobMission, desiredOutcomes1, desiredOutcomes2, desiredOutcomes3 } = req.body;
+      const { jobTitle, focusArea, salary, dateCreated, jobMission } = req.body;
       const targetSkills = JSON.stringify(req.body.targetSkills);
-      let postQuery = 'INSERT INTO `openPositions`(`id`, `companyId`, `jobTitle`, `focusArea`, `salary`, `dateCreated`, `jobMission`, `desiredOutcome1`, `desiredOutcome2`, `desiredOutcome3`, `targetSkills`)\
-         VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-      let values = [1, jobTitle, focusArea, salary, dateCreated, jobMission, desiredOutcomes1, desiredOutcomes2, desiredOutcomes3, targetSkills];
+      const desiredOutcomes = JSON.stringify(req.body.desiredOutcomes);
+      let postQuery = 'INSERT INTO `openPositions`(`id`, `companyId`, `jobTitle`, `focusArea`, `salary`, `dateCreated`, `jobMission`, `desiredOutcomes`, `targetSkills`)\
+         VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
+      let values = [1, jobTitle, focusArea, salary, dateCreated, jobMission, desiredOutcomes, targetSkills];
       const [result] = await conn.query(postQuery, values);
       const insertedJob = {
         id: result.insertId,
@@ -44,9 +45,7 @@ const openJobs = conn => {
         salary: salary, 
         dateCreated: dateCreated,
         jobMission: jobMission,
-        desiredOutcome1: desiredOutcomes1,
-        desiredOutcome2: desiredOutcomes2,
-        desiredOutcome3: desiredOutcomes3, 
+        desiredOutcomes: desiredOutcomes, 
         targetSkills: targetSkills
       }
       const output = {

@@ -41,8 +41,12 @@ export default class AddJob extends React.Component {
   }
 
   submitData() {
-    const formData = {...this.state}
-    this.props.addJob(formData)
+    const formData = {...this.state};
+    formData.desiredOutcomes = [formData.desiredOutcomes1, formData.desiredOutcomes2, formData.desiredOutcomes3];
+    delete formData.desiredOutcomes1;
+    delete formData.desiredOutcomes2;
+    delete formData.desiredOutcomes3;
+    this.props.addJob(formData);
   }
 
   render() {

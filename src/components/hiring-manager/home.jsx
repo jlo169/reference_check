@@ -35,10 +35,13 @@ export default class Home extends React.Component {
   addJob(data) {
     let d = new Date();
     data['dateCreated'] = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    console.log(data.desiredOutcomes);
 
     axios.post('/api/openJobs', data)
       .then(response => {
-        const openJobsArr = [...this.state.openJobs, response.data.data.insertedJob];
+        const newJob = response.data.data.insertedJob;
+        JSON.parse(newJob.desiredOutcomes);
+        const openJobsArr = [...this.state.openJobs, newJob];
         this.setState({ currentTab: 'openJobs', openJobs: openJobsArr })
       })
       .catch(err => console.error(err));
@@ -47,7 +50,8 @@ export default class Home extends React.Component {
   getOpenJobs() {
     axios.get('/api/openJobs')
       .then(response => {
-        this.setState({ openJobs: response.data });
+        const jobs = response.data;
+        this.setState({ openJobs: jobs });
       })
       .catch(error => console.error(error));
   }
