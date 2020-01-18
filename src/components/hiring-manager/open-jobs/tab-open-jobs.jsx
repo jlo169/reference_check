@@ -39,7 +39,6 @@ export default class OpenJobs extends React.Component {
   render() {
     const job = this.state.jobListing;
     let desiredOutcomes;
-    console.log('job',job)
 
     if (job.id) {
       desiredOutcomes = job.desiredOutcomes;
