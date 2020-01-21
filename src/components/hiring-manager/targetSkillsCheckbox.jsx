@@ -22,6 +22,7 @@ export default class TargetSkills extends React.Component {
       {title: 'Charisma',
       name: 'charisma'}
     ];
+    
     return skills.map( (skill, i) => {
       return (
         <div className="form-check" key={i}>

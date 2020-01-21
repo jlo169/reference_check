@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import JobsTable from './jobs-table';
 import CandidatesTable from './job-candidates-table';
+import { targetSkillsObj } from '../targetSkillsObj';
 
 
 export default class OpenJobs extends React.Component {
@@ -14,6 +15,7 @@ export default class OpenJobs extends React.Component {
     }
 
     this.getJobCandidates = this.getJobCandidates.bind(this);
+    this.createTargetSkillsList = this.createTargetSkillsList.bind(this);
   }
 
   getJobCandidates(event) {
@@ -32,6 +34,22 @@ export default class OpenJobs extends React.Component {
       .catch(error => console.error(error));
   }
 
+  createTargetSkillsList(obj) {
+    const parsedObj = JSON.parse(obj)
+    const targetSkillsArr = Object.entries(parsedObj);
+    console.log('targetSkillsArr is', targetSkillsArr);
+    const list = [];
+    for (let i = 0; i < targetSkillsArr.length; i++) {
+      if (targetSkillsArr[i][1] === true) {
+        list.push(targetSkillsArr[i][0])
+      }
+    }
+
+    return list.map((skill, index) => {
+      return <li key={index}>{targetSkillsObj[skill]}</li>
+    });
+  }
+
   handleBackArrowClick() {
     this.setState({ currentTable: 'jobs', jobListing: [] });
   }
@@ -39,11 +57,15 @@ export default class OpenJobs extends React.Component {
   render() {
     const job = this.state.jobListing;
     let desiredOutcomes;
+    let targetSkills;
+    console.log(this.state.jobListing)
 
     if (job.id) {
       desiredOutcomes = job.desiredOutcomes;
       desiredOutcomes = JSON.parse(desiredOutcomes)
       desiredOutcomes = desiredOutcomes.map((listItem, i) => <li key={i}>{listItem}</li>);
+
+      targetSkills = this.createTargetSkillsList(job.targetSkills);
     }
 
     return (
@@ -57,7 +79,6 @@ export default class OpenJobs extends React.Component {
               <h5 className="col-xs-12 col-sm-6">Focus Area: {job.focusArea}</h5>
               <h5 className="col-xs-12 col-sm-6">Salary: ${job.salary}</h5>
               <h5 className="col-12">Job Mission: {job.jobMission}</h5>
-
               {desiredOutcomes ? (
                 <ul className="col">
                   {desiredOutcomes}
@@ -67,7 +88,10 @@ export default class OpenJobs extends React.Component {
               )}
             </div>
             <div className="row col-xs-12 col-sm-4">
-              <h5>Targetted Skills</h5>
+              <h5 className="col-12">Targetted Skills</h5>
+              <ul className="col-12">
+                  {targetSkills}
+                </ul>
             </div>
           </div>
         ) : (
