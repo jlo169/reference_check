@@ -9,8 +9,9 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.DB_PORT || 3001;
 
+const login = require('./endpoints/login.js');
 const candidates = require('./endpoints/candidates.js');
-const openJobs = require('./endpoints/openJobs.js')
+const openJobs = require('./endpoints/openJobs.js');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -26,6 +27,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', login(db));
 app.use('/api', candidates(db));
 app.use('/api', openJobs(db));
 

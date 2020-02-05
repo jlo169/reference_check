@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Candidates from './candidates/tab-candidates';
-import Dashboard from './dashboard/tab-dashboard';
-import OpenJobs from './open-jobs/tab-open-jobs';
-import AddJob from './form-add-job';
-import AddCandidate from './form-add-candidate';
+import Candidates from '../hiring-manager/candidates/tab-candidates';
+import Dashboard from '../hiring-manager/dashboard/tab-dashboard';
+import OpenJobs from '../hiring-manager/open-jobs/tab-open-jobs';
+import AddJob from '../hiring-manager/form-add-job';
+import AddCandidate from '../hiring-manager/form-add-candidate';
 import "./hiring-manager.css";
 
 export default class Home extends React.Component {

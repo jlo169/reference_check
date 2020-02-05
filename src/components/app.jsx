@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './layout/header';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import Login from './hiring-manager/login';
-import Home from './hiring-manager/home';
+import Login from './shared/login';
+import Home from './shared/home';
 
 class App extends React.Component {
   constructor(props) {
