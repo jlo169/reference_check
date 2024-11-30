@@ -1,16 +1,49 @@
 import React from 'react';
 import Header from './layout/header';
-// import ReactDOM from 'react-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import Login from './hiring-manager/login';
+import Home from './hiring-manager/home';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userSessionData: {
+        id: null,
+        type: null
+      }
+    }
+
+    this.loginButton = this.loginButton.bind(this);
+  }
+
+  loginButton(loginInfo) {
+    const id = {id: loginInfo.email, type: loginInfo.type};
+    this.setState({ userSessionData: id }, () => {
+      this.props.history.push({
+        pathname: `/dashboard`
+      });
+    });
+  }
+
   render () {
     return (
       <div>
         <Header />
-        pug pug
+        <Switch>
+          <Route exact path="/" render={props =>
+            <Login {...props}
+              loginButton={this.loginButton}
+            />
+          }/>
+          <Route exact path="/dashboard" render={props =>
+            <Home {...props}
+            />
+          }/>
+        </Switch>
       </div>
     )
   }
 }
 
-export default App;
+export default withRouter(App);
